@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,15 +8,22 @@ import { AuthService, AuthResponseData } from './auth.service';
   selector: 'app-auth',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent {
+export class AuthComponent implements AfterViewInit{
+  @ViewChild('email') email : ElementRef;
   isLoginMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;
 
-  constructor(private authService: AuthService, private router : Router ) {}
+  constructor(private authService: AuthService, private router : Router, private renderer : Renderer2 ) {}
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
+
+  ngAfterViewInit(){
+    console.log(this.email);
+    this.renderer.setStyle(this.email.nativeElement, 'color' , 'blue');
+  }
+  
 
   onSubmit(form: NgForm) {
     if (!form.valid) {
@@ -47,5 +54,9 @@ export class AuthComponent {
       }
     );
     form.reset();
+  }
+
+  onHandleError(){
+    this.error = null;
   }
 }
