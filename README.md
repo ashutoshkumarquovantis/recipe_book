@@ -1,3 +1,6 @@
+# Hosting
+The project has been hosted on Firebase -> https://ng-course-recipe-book-53369.web.app/auth
+
 # ShoppingCart
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.10.
